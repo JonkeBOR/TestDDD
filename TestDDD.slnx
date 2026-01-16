@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TestDDD.Tests/TestDDD.Tests.csproj" />
+  <Project Path="TestDDD/TestDDD.csproj" />
+</Solution>

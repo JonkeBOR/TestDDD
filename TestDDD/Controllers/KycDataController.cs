@@ -22,17 +22,17 @@ public class KycDataController : ControllerBase
     /// </summary>
     /// <param name="ssn">Social Security Number of the customer</param>
     /// <returns>Aggregated KYC data</returns>
-        [HttpGet("kyc-data/{ssn}")]
-        public async Task<IActionResult> GetAggregatedKycData(string ssn)
+    [HttpGet("kyc-data/{ssn}")]
+    public async Task<IActionResult> GetAggregatedKycData(string ssn)
+    {
+        if (string.IsNullOrWhiteSpace(ssn))
         {
-            if (string.IsNullOrWhiteSpace(ssn))
-            {
-                _logger.LogWarning("Invalid SSN provided: empty or whitespace");
-                return BadRequest(new ErrorResponse { Error = "SSN cannot be empty." });
-            }
-
-            _logger.LogInformation("Processing request for KYC data with SSN: {Ssn}", ssn);
-            var kycData = await _kycAggregationService.GetAggregatedKycDataAsync(ssn);
-            return Ok(kycData);
+            _logger.LogWarning("Invalid SSN provided: empty or whitespace");
+            return BadRequest(new ErrorResponse { Error = "SSN cannot be empty." });
         }
+
+        _logger.LogInformation("Processing request for KYC data with SSN: {Ssn}", ssn);
+        var kycData = await _kycAggregationService.GetAggregatedKycDataAsync(ssn);
+        return Ok(kycData);
     }
+}
